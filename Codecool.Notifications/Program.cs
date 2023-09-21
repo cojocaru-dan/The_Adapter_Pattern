@@ -1,4 +1,5 @@
-﻿using Codecool.Notifications.NotificationSenders;
+﻿using Codecool.Notifications.NotificationAdapters;
+using Codecool.Notifications.NotificationSenders;
 
 namespace Codecool.Notifications;
 
@@ -23,15 +24,15 @@ class Program
     private static void Main(string[] args)
     {
         var users = GenerateRandomUsers();
-        var smsSender = new SmsSender();
-        var emailSender = new EmailSender();
-        var toastNotificationSender = new ToastNotificationSender();
+        var smsAdapter = new SmsAdapter();
+        var emailAdapter = new EmailAdapter();
+        var toastNotificationAdapter = new ToastNotificationAdapter();
 
         foreach (var user in users)
         {
-            smsSender.SendSms(user.PhoneNumber, "Hello!");
-            emailSender.SendEmail(user.Email, "Codecool", "Notification", "Hello!");
-            toastNotificationSender.SendToastNotification(user.UserName, "Hello!");
+            smsAdapter.SendInfoTo(user);
+            emailAdapter.SendInfoTo(user);
+            toastNotificationAdapter.SendInfoTo(user);
         }
         
         Console.WriteLine("Press any key to exit.");
